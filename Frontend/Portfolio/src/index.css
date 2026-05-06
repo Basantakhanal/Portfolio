@@ -1,19 +1,26 @@
 @import "tailwindcss";
 
+/* Prevent horizontal scrolling */
+html, body {
+  overflow-x: hidden;
+}
 
 body {
-  font-family: "poppins",sans-serif;
+  font-family: "poppins", sans-serif;
 }
 
-h1,h2 
-{
-  font-family: "Roboto",sans-serif;
+h1, h2 {
+  font-family: "Roboto", sans-serif;
 }
+
+/* Utility classes */
 @layer utilities {
-  .gradient{
-    background: linear-gradient(-45 deg #302b63,#00bf8f,#1cd8d2);
+  .gradient {
+    background: linear-gradient(-45deg, #302b63, #00bf8f, #1cd8d2);
+  }
 }
-}
+
+/* Floating animation */
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-15px); }

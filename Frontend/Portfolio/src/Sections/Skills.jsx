@@ -19,14 +19,17 @@ export default function Skills() {
   return (
     <section
       id="skills"
-          className="relative min-h-screen py-24 px-6 bg-black text-white overflow-hidden flex flex-col items-center justify-center"
+      className="relative min-h-screen py-24 px-6 
+      bg-gradient-to-r from-[#0f172a] via-[#0b1b3a] to-[#020617] 
+      text-white overflow-hidden flex flex-col items-center justify-center"
     >
-      {/*Particles Background */}
+      {/* Particles Background */}
       <ParticlesBackgrounds />
 
-      
+      {/* Heading */}
       <motion.h2
-        className="text-4xl sm:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-[#1cd8d2] via-[#00bf8f] to-[#1cd8d2] z-10"
+        className="text-4xl sm:text-5xl font-extrabold bg-clip-text text-transparent 
+        bg-gradient-to-r from-[#1cd8d2] via-[#00bf8f] to-[#1cd8d2] z-10"
         initial={{ opacity: 0, y: -25 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -34,7 +37,7 @@ export default function Skills() {
         My Skills
       </motion.h2>
 
-      
+      {/* Subtext */}
       <motion.p
         className="mt-3 mb-12 text-white/70 text-base sm:text-lg z-10"
         initial={{ opacity: 0, y: -10 }}
@@ -44,6 +47,7 @@ export default function Skills() {
         Modern Applications • Modern Technologies
       </motion.p>
 
+      {/* Grid */}
       <div className="z-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-10">
         {skills.map((skill, index) => (
           <motion.div

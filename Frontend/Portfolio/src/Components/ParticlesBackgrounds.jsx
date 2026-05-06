@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export default function ParticlesBackgrounds(){
+export default function ParticlesBackgrounds() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export default function ParticlesBackgrounds(){
     const colors = ["rgba(255,255,255,0.7)"];
 
     class Particle {
-      constructor(){
+      constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.radius = Math.random() * 2 + 1;
@@ -21,39 +21,41 @@ export default function ParticlesBackgrounds(){
         this.speedY = (Math.random() - 0.5) * 0.5;
       }
 
-      draw(){
+      draw() {
         ctx.beginPath();
-        ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.shadowBlur = 10;
         ctx.shadowColor = this.color;
         ctx.fillStyle = this.color;
         ctx.fill();
       }
 
-      update(){
+      update() {
         this.x += this.speedX;
         this.y += this.speedY;
 
-        if(this.x < 0) this.x = canvas.width;
-        if(this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
 
-        if(this.y < 0) this.y = canvas.height;
-        if(this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
 
         this.draw();
       }
     }
 
-    function createParticles(){
+    function createParticles() {
       particles = [];
-      for(let i = 0; i < particlesCount; i++){
+      for (let i = 0; i < particlesCount; i++) {
         particles.push(new Particle());
       }
     }
 
-    function handleResize(){
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    function handleResize() {
+      // ✅ FIX: prevents horizontal overflow
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+
       createParticles();
     }
 
@@ -62,8 +64,8 @@ export default function ParticlesBackgrounds(){
 
     let animationId;
 
-    function animate(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       particles.forEach((p) => p.update());
       animationId = requestAnimationFrame(animate);
     }
@@ -74,13 +76,12 @@ export default function ParticlesBackgrounds(){
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", handleResize);
     };
+  }, []);
 
-  },[]);
-
-  return(
+  return (
     <canvas
       ref={canvasRef}
-      className="absolute top-0 left-0 w-full h-full pointer-events-none z-0"
-    ></canvas>
-  )
+      className="absolute inset-0 w-full h-full block pointer-events-none z-0 overflow-hidden"
+    />
+  );
 }

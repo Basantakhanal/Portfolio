@@ -2,7 +2,6 @@ import React, { useMemo, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import ParticlesBackgrounds from "../Components/ParticlesBackgrounds";
 import { FaGithub, FaXTwitter } from "react-icons/fa6";
-import avatar from "../assets/avator.png";
 import { FaInstagram } from "react-icons/fa";
 
 const socials = [
@@ -44,35 +43,18 @@ export default function Home() {
   return (
     <section
       id="home"
-      className="w-full h-screen relative bg-black overflow-hidden"
+      className="w-full h-screen relative bg-gradient-to-r from-[#0f172a] via-[#0b1b3a] to-[#020617] overflow-hidden"
     >
       {/* Background Particles */}
       <ParticlesBackgrounds />
 
-      {/* Gradient blobs */}
-      <div className="absolute inset-0">
-        <div
-          className="absolute -top-32 -left-32 w-[70vw] sm:w-[50vw] md:w-[40vw]
-          h-[70vw] sm:h-[50vw] md:h-[40vw]
-          max-w-[500px] max-h-[500px]
-          rounded-full bg-gradient-to-r from-[#302b63] via-[#00bf8f] to-[#1cd8d2]
-          opacity-20 blur-[120px] animate-pulse"
-        ></div>
-
-        <div
-          className="absolute bottom-0 right-0 w-[70vw] sm:w-[50vw] md:w-[40vw]
-          h-[70vw] sm:h-[50vw] md:h-[40vw]
-          max-w-[500px] max-h-[500px]
-          rounded-full bg-gradient-to-r from-[#302b63] via-[#00bf8f] to-[#1cd8d2]
-          opacity-20 blur-[120px] animate-pulse delay-500"
-        ></div>
-      </div>
+      {/* ❌ Removed gradient blobs */}
 
       {/* Main Content */}
-      <div className="relative z-10 h-full w-full max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2">
+      <div className="relative z-10 h-full w-full max-w-7xl mx-auto px-4 flex items-center justify-center">
         
-        {/* Left Side */}
-        <div className="flex flex-col justify-center h-full text-left lg:pl-20 xl:pl-28">
+        {/* Centered Content */}
+        <div className="flex flex-col items-center text-center">
           
           {/* Typing Role Animation */}
           <motion.div
@@ -111,30 +93,25 @@ export default function Home() {
 
           {/* Buttons */}
           <motion.div
-            className="mt-8 flex flex-wrap gap-6"
+            className="mt-8 flex flex-wrap gap-6 justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
           >
-            {/* Projects Button */}
             <a
               href="#projects"
-              className="py-3 px-6 rounded-full font-medium text-white 
-              bg-gradient-to-r from-[#1cd8d2] via-[#00bf8f] to-[#302b63] 
-              hover:scale-105 transition"
+               className="px-6 py-3 rounded-full font-medium bg-white text-black hover:bg-gray-200 transition"
             >
               View My Work
             </a>
 
-            {/* ✅ Resume Download Button FIXED for GitHub Pages */}
-         <a
-  href="/Myresume.pdf"
-  download
-  className="px-6 py-3 rounded-full font-medium bg-white text-black hover:bg-gray-200 transition"
->
-  My Resume
-</a>
-
+            <a
+              href="/Myresume.pdf"
+              download
+              className="px-6 py-3 rounded-full font-medium bg-white text-black hover:bg-gray-200 transition"
+            >
+              My Resume
+            </a>
           </motion.div>
 
           {/* Social Icons */}
@@ -154,29 +131,9 @@ export default function Home() {
             ))}
           </div>
         </div>
-
-        {/* Right Side Image */}
-        <div className="hidden lg:flex items-center justify-center relative">
-          
-          {/* Glow Background */}
-          <div
-            className="absolute w-[420px] h-[420px] rounded-full 
-            bg-gradient-to-r from-[#1cd8d2] via-[#00bf8f] to-[#302b63]
-            blur-[140px] opacity-40 animate-pulse"
-          ></div>
-
-          {/* Avatar */}
-          <motion.img
-            src={avatar}
-            alt="Basanta Khanal"
-            className="relative z-10 max-h-[80vh] object-contain 
-            drop-shadow-[0_0_60px_rgba(28,216,210,0.9)]"
-            initial={{ opacity: 0, y: 40, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.8 }}
-          />
-        </div>
       </div>
+
+      {/* ❌ Removed right-side glow + image section */}
     </section>
   );
 }
