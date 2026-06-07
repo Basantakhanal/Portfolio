@@ -43,34 +43,24 @@ export default function Home() {
   return (
     <section
       id="home"
-      className="w-full h-screen relative bg-gradient-to-r from-[#0f172a] via-[#0b1b3a] to-[#020617] overflow-hidden"
+      className="w-full h-screen relative bg-[#0f172a] overflow-hidden"
     >
-      {/* Background Particles */}
+      {/* Particles Background */}
       <ParticlesBackgrounds />
 
-      {/* ❌ Removed gradient blobs */}
-
-      {/* Main Content */}
+      {/* Content */}
       <div className="relative z-10 h-full w-full max-w-7xl mx-auto px-4 flex items-center justify-center">
-        
-        {/* Centered Content */}
         <div className="flex flex-col items-center text-center">
-          
-          {/* Typing Role Animation */}
-          <motion.div
-            className="mb-4 text-2xl sm:text-3xl font-semibold text-white min-h-[1.6em]"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+
+          {/* Typing Role */}
+          <motion.div className="mb-4 text-2xl sm:text-3xl font-semibold text-white min-h-[1.6em]">
             {roles[index].substring(0, subIndex)}
-            <span className="inline-block w-[2px] ml-1 bg-white animate-pulse align-middle h-[1em]" />
+            <span className="inline-block w-[2px] ml-1 bg-white animate-pulse h-[1em]" />
           </motion.div>
 
-          {/* Name Heading */}
+          {/* Name */}
           <motion.h1
-            className="text-4xl sm:text-6xl font-bold text-transparent bg-clip-text 
-            bg-gradient-to-r from-[#1cd8d2] via-[#00bf8f] to-[#302b63]"
+            className="text-4xl sm:text-6xl font-bold text-white"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
@@ -87,34 +77,21 @@ export default function Home() {
             transition={{ delay: 0.4 }}
           >
             I am a Computer Engineer from Nepal. Deeply interested in technology,
-            coding, and solving complex problems. My aim is to grow into a
-            competent engineer and build innovative solutions.
+            coding, and solving complex problems.
           </motion.p>
 
           {/* Buttons */}
-          <motion.div
-            className="mt-8 flex flex-wrap gap-6 justify-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
-            <a
-              href="#projects"
-               className="px-6 py-3 rounded-full font-medium bg-white text-black hover:bg-gray-200 transition"
-            >
+          <motion.div className="mt-8 flex gap-6 justify-center">
+            <a className="px-6 py-3 bg-white text-black rounded-full">
               View My Work
             </a>
 
-            <a
-              href="/Myresume.pdf"
-              download
-              className="px-6 py-3 rounded-full font-medium bg-white text-black hover:bg-gray-200 transition"
-            >
+            <a className="px-6 py-3 bg-white text-black rounded-full">
               My Resume
             </a>
           </motion.div>
 
-          {/* Social Icons */}
+          {/* Social */}
           <div className="mt-8 flex gap-6 text-2xl">
             {socials.map(({ icon: Icon, label, href }) => (
               <motion.a
@@ -123,17 +100,15 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-                className="text-gray-300 hover:text-white transition"
+                className="text-gray-300 hover:text-white"
               >
                 <Icon />
               </motion.a>
             ))}
           </div>
+
         </div>
       </div>
-
-      {/* ❌ Removed right-side glow + image section */}
     </section>
   );
 }

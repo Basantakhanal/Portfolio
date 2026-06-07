@@ -16,12 +16,12 @@ export default function About() {
   ];
 
   return (
-    <section
-      id="about"
-      className="min-h-screen py-24 px-6 
-      bg-gradient-to-br 
-      from-[#0f172a] via-[#0b1b3a] to-[#020617]"
-    >
+   <section
+  id="about"
+  className="relative min-h-screen py-24 px-6 overflow-hidden
+  bg-gradient-to-br 
+  from-[#0f172a] via-[#0b1b3a] to-[#020617]"
+>
       {/* Background Glows */}
       <div className="absolute inset-0 pointer-events-none">
         {glows.map((c, i) => (
@@ -113,8 +113,10 @@ export default function About() {
           transition={{ duration: 0.4 }}
           viewport={{ once: true, amount: 0.4 }}
         >
+
          
         </motion.div>
+        
       </div>
     </section>
   );

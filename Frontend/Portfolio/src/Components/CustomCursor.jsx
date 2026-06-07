@@ -1,16 +1,18 @@
+// CustomCursor.jsx
 import { useEffect, useState } from "react";
 
 export default function CustomCursor() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState(null);
 
   useEffect(() => {
     const moveHandler = (e) => {
       setPosition({ x: e.clientX, y: e.clientY });
     };
-
     window.addEventListener("mousemove", moveHandler);
     return () => window.removeEventListener("mousemove", moveHandler);
   }, []);
+
+  if (!position) return null; // ✅ won't render until mouse moves
 
   return (
     <div
@@ -19,7 +21,7 @@ export default function CustomCursor() {
         transform: `translate(${position.x - 40}px, ${position.y - 40}px)`,
       }}
     >
-      <div className="w-20 h-20 rounded-full bg-indigo-500 blur-3xl opacity-40"></div>
+      <div className="w-20 h-20 rounded-full bg-indigo-500 blur-3xl opacity-40" />
     </div>
   );
 }

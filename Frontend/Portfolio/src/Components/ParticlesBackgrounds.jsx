@@ -9,23 +9,28 @@ export default function ParticlesBackgrounds() {
 
     let particles = [];
     const particlesCount = 50;
-    const colors = ["rgba(255,255,255,0.7)"];
 
     class Particle {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.radius = Math.random() * 2 + 1;
-        this.color = colors[0];
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
+
+        // 🔥 LOWER OPACITY (fixes "glow illusion")
+        this.color = "rgba(255,255,255,0.15)";
+
+        this.speedX = (Math.random() - 0.5) * 0.4;
+        this.speedY = (Math.random() - 0.5) * 0.4;
       }
 
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = this.color;
+
+        // 🔥 HARD RESET ALL GLOW
+        ctx.shadowBlur = 0;
+        ctx.shadowColor = "transparent";
+
         ctx.fillStyle = this.color;
         ctx.fill();
       }
@@ -34,6 +39,7 @@ export default function ParticlesBackgrounds() {
         this.x += this.speedX;
         this.y += this.speedY;
 
+        // wrap around edges
         if (this.x < 0) this.x = canvas.width;
         if (this.x > canvas.width) this.x = 0;
 
@@ -52,10 +58,8 @@ export default function ParticlesBackgrounds() {
     }
 
     function handleResize() {
-      // ✅ FIX: prevents horizontal overflow
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
-
       createParticles();
     }
 
@@ -66,6 +70,11 @@ export default function ParticlesBackgrounds() {
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // 🔥 EXTRA SAFETY RESET (prevents fake glow)
+      ctx.shadowBlur = 0;
+      ctx.shadowColor = "transparent";
+
       particles.forEach((p) => p.update());
       animationId = requestAnimationFrame(animate);
     }
@@ -81,7 +90,7 @@ export default function ParticlesBackgrounds() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full block pointer-events-none z-0 overflow-hidden"
+      className="absolute inset-0 w-full h-full block pointer-events-none z-0"
     />
   );
 }
