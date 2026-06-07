@@ -40,6 +40,14 @@ export default function Home() {
     return () => clearTimeout(timeout);
   }, [subIndex, index, deleting, roles]);
 
+  const scrollToProjects = () => {
+    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const openResume = () => {
+  window.location.href = "/Myresume.pdf";
+};
+
   return (
     <section
       id="home"
@@ -82,13 +90,19 @@ export default function Home() {
 
           {/* Buttons */}
           <motion.div className="mt-8 flex gap-6 justify-center">
-            <a className="px-6 py-3 bg-white text-black rounded-full">
+            <button
+              onClick={scrollToProjects}
+              className="px-6 py-3 bg-white text-black rounded-full hover:bg-gray-200 transition-colors duration-200 cursor-pointer"
+            >
               View My Work
-            </a>
+            </button>
 
-            <a className="px-6 py-3 bg-white text-black rounded-full">
+            <button
+              onClick={openResume}
+              className="px-6 py-3 bg-white text-black rounded-full hover:bg-gray-200 transition-colors duration-200 cursor-pointer"
+            >
               My Resume
-            </a>
+            </button>
           </motion.div>
 
           {/* Social */}
