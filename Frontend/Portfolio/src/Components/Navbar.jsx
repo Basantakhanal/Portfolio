@@ -5,88 +5,80 @@ import { FiMenu } from "react-icons/fi";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-
   const [visible, setVisible] = useState(true);
-  const [forceVisible, setForceVisible] = useState(false);
 
-  const lastScrollV = useRef(0);
-  const timerId = useRef(null);
+  const lastScrollY = useRef(0);
 
-  // Intersection Observer to always show navbar at #home
-  
-  
-
-  useEffect(() => {
-    const homeSection = document.querySelector("#home");
-    if (!homeSection) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setForceVisible(true);
-          setVisible(true);
-        } else {
-          setForceVisible(false);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(homeSection);
-    return () => observer.unobserve(homeSection);
-  }, []);
-
-  // Scroll logic
   useEffect(() => {
     const handleScroll = () => {
-      if (forceVisible) {
+      const currentScrollY = window.scrollY;
+
+      // Always show navbar at the top
+      if (currentScrollY <= 10) {
         setVisible(true);
+        lastScrollY.current = currentScrollY;
         return;
       }
 
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY > lastScrollV.current) {
-        // scrolling down → hide navbar
+      // Scrolling down → hide
+      if (currentScrollY > lastScrollY.current) {
         setVisible(false);
-      } else {
-        // scrolling up → show navbar
+      }
+
+      // Scrolling up → show
+      else if (currentScrollY < lastScrollY.current) {
         setVisible(true);
       }
 
-      lastScrollV.current = currentScrollY;
-
-      // Auto-hide after 3s of inactivity
-      if (timerId.current) clearTimeout(timerId.current);
-      timerId.current = setTimeout(() => {
-        setVisible(false);
-      }, 3000);
+      lastScrollY.current = currentScrollY;
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      if (timerId.current) clearTimeout(timerId.current);
     };
-  }, [forceVisible]);
+  }, []);
 
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 w-full flex items-center justify-between px-6 py-4 z-50 transition-transform duration-300 ${
-          visible ? "translate-y-0" : "-translate-y-full"
+        className={`fixed top-0 left-0 w-full z-50
+        flex items-center justify-between
+        px-6 py-4
+        transition-transform duration-300 ease-in-out
+        ${
+          visible
+            ? "translate-y-0"
+            : "-translate-y-full"
         }`}
       >
-        {/* ✅ Logo + Name Redirect to Home */}
-        <a href="#home" className="flex items-center space-x-1 cursor-pointer">
-          <img src={Logo} alt="logo" className="w-10 h-10" />
-          <div className="text-2xl font-bold text-white hidden sm:block hover:text-gray-300 transition">
+        {/* Logo + Name */}
+        <a
+          href="#home"
+          className="flex items-center space-x-1 cursor-pointer"
+        >
+          <img
+            src={Logo}
+            alt="logo"
+            className="w-10 h-10"
+          />
+
+          <div
+            className="text-2xl font-bold text-white
+            hidden sm:block hover:text-gray-300 transition"
+          >
             Basanta
           </div>
         </a>
 
         {/* Hamburger Button */}
-        <div className="block lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2">
+        <div
+          className="block lg:absolute lg:left-1/2
+          lg:transform lg:-translate-x-1/2"
+        >
           <button
             onClick={() => setMenuOpen(true)}
             className="text-white text-3xl focus:outline-none"
@@ -100,7 +92,10 @@ export default function Navbar() {
         <div className="hidden lg:block">
           <a
             href="#contact"
-            className="bg-gradient-to-r from-pink-500 to-blue-500 text-white px-5 py-2 rounded-full font-medium shadow-lg hover:opacity-90 transition-opacity duration-300"
+            className="bg-gradient-to-r from-pink-500 to-blue-500
+            text-white px-5 py-2 rounded-full font-medium
+            shadow-lg hover:opacity-90
+            transition-opacity duration-300"
           >
             Reachout
           </a>
@@ -108,7 +103,10 @@ export default function Navbar() {
       </nav>
 
       {/* Overlay Menu */}
-      <Overlaymenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+      <Overlaymenu
+        isOpen={menuOpen}
+        onClose={() => setMenuOpen(false)}
+      />
     </>
   );
 }

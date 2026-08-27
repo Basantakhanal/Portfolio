@@ -2,7 +2,8 @@ import Experience from "./Sections/Experience";
 // import Testimonials from "./Sections/Testimonials";
 import Navbar from "./Components/Navbar";
 import Home from "./Sections/Home";
-import Skills from "./Sections/Skills";
+
+// import Skills from "./Sections/Skills";
 import Contact from "./Sections/Contact";
 import Project from "./Sections/Project";
 // import Footers from "./Sections/Footers";
@@ -46,7 +47,7 @@ export default function App() {
           <Navbar />
           <Home />
           <About />
-          <Skills />
+          {/* <Skills /> */}
           <Project />
           <Experience />
           <Contact />
